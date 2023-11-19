@@ -1,6 +1,6 @@
 const TABLA = {
-    name: 'Viajes',
-    pk: 'id_viaje',
+    name: 'TiposProducto',
+    pk: 'id_tipo_producto',
 };
 
 module.exports = function (injectedStore) {
@@ -17,28 +17,22 @@ module.exports = function (injectedStore) {
     }
 
     async function upsert(body) {
-        const viaje = {
-            origen: body.origen,
-            destino: body.destino,
-            cc_ciudadano: body.cc_ciudadano,
+        const product_type = {
+            id_tipo_producto: body.id_tipo_producto,
+            detalle: body.detalle,
         };
-        if ( body.fecha_planificacion ) {
-            viaje.fecha_planificacion = body.fecha_planificacion;
-        }
 
-        if (body.accion == 'insert' && (!viaje.origen || !viaje.destino || !viaje.cc_ciudadano)) {
+        if (body.accion == 'insert' && (!product_type.detalle)) {
             return Promise.reject('No se indico la información necesaria');
-        } else if(body.accion == 'update' && body.id_viaje) {
-            viaje.id_viaje = body.id_viaje;
         }
 
-        const response = await store.upsert(TABLA, viaje, body.accion);
+        const response = await store.upsert(TABLA, product_type, body.accion);
         return response;
     }
 
     function remove(id) {
         if(!id) {
-            return Promise.reject('No se indico el id del viaje planificado');
+            return Promise.reject('No se indico el id del tipo producto');
         }
         return store.remove(TABLA, id);
     }

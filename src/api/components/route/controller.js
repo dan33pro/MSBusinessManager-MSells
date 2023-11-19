@@ -19,13 +19,12 @@ module.exports = function (injectedStore) {
     async function upsert(body) {
         const ruta = {
             nombre_ruta: body.nombre_ruta,
-            precio: body.precio,
-            horario_apertura: body.horario_apertura,
-            horario_cierre: body.horario_cierre,
-            cc_administrador: body.cc_administrador,
+            id_admin: body.id_usuario,
+            id_vendedor: body.id_vendedor,
+            id_entregador: body.id_entregador,
         };
 
-        if (body.accion == 'insert' && (!ruta.nombre_ruta || !ruta.precio || !ruta.horario_apertura ||  !ruta.horario_cierre || !ruta.cc_administrador)) {
+        if (body.accion == 'insert' && (!ruta.nombre_ruta || !ruta.id_admin ||  !ruta.id_vendedor || !ruta.id_entregador)) {
             return Promise.reject('No se indico la información necesaria');
         } else if(body.accion == 'update' && body.id_ruta) {
             ruta.id_ruta = body.id_ruta;

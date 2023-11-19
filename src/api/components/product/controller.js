@@ -38,7 +38,7 @@ module.exports = function (injectedStore) {
 
     function remove(id) {
         if(!id) {
-            return Promise.reject('No se indico el id de la parada');
+            return Promise.reject('No se indico el id de la producto');
         }
         return store.remove(TABLA, id);
     }
