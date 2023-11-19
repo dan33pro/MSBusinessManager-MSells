@@ -5,12 +5,12 @@ const response = require('../../../tools/network/response');
 const controller = require('./index');
 
 const router = express.Router();
-router.get('/', list);
-router.get('/:id', get);
-router.get('/:key/:value', findByquery);
-router.post('/', secure('admin'), upsert);
-router.put('/', secure('admin'), upsert);
-router.delete('/:id', remove);
+router.get('/', secure('valid'), list);
+router.get('/:id', secure('valid'), get);
+router.get('/:key/:value', secure('valid'), findByquery);
+router.post('/', secure('valid'), secure('admin'), upsert);
+router.put('/', secure('valid'), secure('admin'), upsert);
+router.delete('/:id', secure('valid'), secure('admin'), remove);
 
 async function list(req, res) {
     try {
@@ -24,8 +24,8 @@ async function list(req, res) {
 
 function get(req, res, next) {
     controller.get(req.params.id)
-        .then((user) => {
-            response.success(req, res, user, 200);
+        .then((result) => {
+            response.success(req, res, result, 200);
         })
         .catch(next);
 };
@@ -40,8 +40,8 @@ function findByquery(req, res, next) {
 
 function upsert(req, res, next) {
     controller.upsert(req.body)
-        .then((user) => {
-            response.success(req, res, user, 201);
+        .then((result) => {
+            response.success(req, res, result, 201);
         })
         .catch(next);
 };

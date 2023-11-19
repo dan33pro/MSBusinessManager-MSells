@@ -1,6 +1,6 @@
 const TABLA = {
-    name: 'ParadasRutas',
-    pk: 'id_parada_ruta',
+    name: 'Productos',
+    pk: 'id_producto',
 };
 
 module.exports = function (injectedStore) {
@@ -17,20 +17,22 @@ module.exports = function (injectedStore) {
     }
 
     async function upsert(body) {
-        const parada = {
-            id_tipo_parada_ruta: body.id_tipo_parada_ruta,
-            id_paradero: body.id_paradero,
-            id_ruta: body.id_ruta,
-            cc_administrador: body.cc_administrador,
+        const product = {
+            id_producto: body.id_producto,
+            nombre: body.nombre,
+            descripcion: body.descripcion,
+            precio: body.precio,
+            empresa: body.empresa,
+            id_tipo_producto: body.id_tipo_producto,
+            id_admin: body.id_usuario,
+            imagen: body.imagen,
         };
 
-        if (body.accion == 'insert' && (!parada.id_tipo_parada_ruta || !parada.id_paradero || !parada.id_ruta || !parada.cc_administrador)) {
+        if (body.accion == 'insert' && (!product.nombre || !product.descripcion || !product.precio || !product.empresa || !product.id_tipo_producto || !product.id_admin || !product.imagen)) {
             return Promise.reject('No se indico la información necesaria');
-        } else if(body.accion == 'update' && body.id_parada_ruta) {
-            parada.id_parada_ruta = body.id_parada_ruta;
         }
 
-        const response = await store.upsert(TABLA, parada, body.accion);
+        const response = await store.upsert(TABLA, product, body.accion);
         return response;
     }
 

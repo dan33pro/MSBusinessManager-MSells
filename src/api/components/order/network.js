@@ -40,8 +40,8 @@ function findByquery(req, res, next) {
 
 function upsert(req, res, next) {
     controller.upsert(req.body)
-        .then((user) => {
-            response.success(req, res, user, 201);
+        .then((result) => {
+            response.success(req, res, result, 201);
         })
         .catch(next);
 };
