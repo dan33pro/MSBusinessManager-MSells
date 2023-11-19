@@ -7,7 +7,7 @@ const controller = require('./index');
 const router = express.Router();
 router.get('/', secure('valid'), list);
 router.get('/:idOne/:idTwo', secure('valid'), get);
-router.get('/:key/:value', secure('valid'), findByquery);
+router.get('/query/:key/:value', secure('valid'), findByquery);
 router.post('/', secure('valid'), secure('vendor'), upsert);
 router.put('/', secure('valid'), secure('vendor'), upsert);
 router.delete('/:idOne/:idTwo', secure('valid'), secure('vendor'), remove);

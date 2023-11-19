@@ -11,7 +11,7 @@ function createRemoteDB(host, port) {
         return req('GET', `${table.name}/${table.pk}/${id}`);
     }
 
-    function get(table, idOne, idTwo) {
+    function getCompose(table, idOne, idTwo) {
         return req('GET', `${table.name}/${table.pkOne}/${table.pkTwo}/${idOne}/${idTwo}`);
     }
 
@@ -27,14 +27,14 @@ function createRemoteDB(host, port) {
         let value = query[key];
 
         if('pk' in table) return req(`GET`, `${table.name}/${table.pk}/${key}/${value}`);
-        return req(`GET`, `${table.name}/${table.pkOne}/${table.pkTwo}/${key}/${value}`);
+        return req(`GET`, `query/${table.name}/${table.pkOne}/${table.pkTwo}/${key}/${value}`);
     }
 
     function remove(table, id) {
         return req('DELETE', `${table.name}/${table.pk}/${id}`);
     }
 
-    function remove(table, idOne, idTwo) {
+    function removeCompose(table, idOne, idTwo) {
         return req('DELETE', `${table.name}/${table.pkOne}/${table.pkTwo}/${idOne}/${idTwo}`);
     }
 
@@ -69,9 +69,11 @@ function createRemoteDB(host, port) {
     return {
         list,
         get,
+        getCompose,
         upsert,
         query,
         remove,
+        removeCompose,
     };
 }
 

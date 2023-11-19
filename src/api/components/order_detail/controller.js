@@ -14,7 +14,7 @@ module.exports = function (injectedStore) {
     }
 
     function get(idOne, idTwo) {
-        return store.get(TABLA, idOne, idTwo);
+        return store.getCompose(TABLA, idOne, idTwo);
     }
 
     async function upsert(body) {
@@ -37,7 +37,7 @@ module.exports = function (injectedStore) {
         if(!idOne || !idTwo) {
             return Promise.reject('Deben indicarse id del producto y id del pedido');
         }
-        return store.remove(TABLA, idOne, idTwo);
+        return store.removeCompose(TABLA, idOne, idTwo);
     }
 
     function findByquery(key, value) {
