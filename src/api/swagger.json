@@ -1,149 +1,1560 @@
 {
-  "openapi": "3.0.3",
+  "openapi": "3.0.0",
   "info": {
-    "title": "RedSocialNode",
-    "description": "Una red social en NodeJS",
-    "contact": {
-      "email": "tesisdajupc@gmail.com"
-    },
-    "version": "1.0.11"
+    "title": "Msells",
+    "version": "1.0.0",
+    "description": "Descripcion de peticiones API - Microservicio Datos"
   },
-  "externalDocs": {
-    "description": "Repositorio de GitHub con documentación",
-    "url": "https://github.com/dan33pro/CursoDeNodeJSAuthMicroserviciosRedis/wiki/"
-  },
-  "servers": [
-    {
-      "url": "http://localhost:3000/api/"
-    }
-  ],
-  "tags": [
-    {
-      "name": "user",
-      "description": "Operaciones sobre el usuario"
-    }
-  ],
   "paths": {
-    "/user": {
+    "/api/product_type/": {
+
       "get": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Listar los usuarios",
-        "description": "Listar los usuarios de la app",
-        "operationId": "ListUser",
+        "summary": "Obtener tipos de productos",
         "responses": {
-          "default": {
-            "description": "Lista de usuarios"
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Crea un usario",
-        "description": "Crea un usuario en nuestra app.",
-        "operationId": "createUser",
-        "requestBody": {
-          "description": "Created user object",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/User"
+          "200": {
+            "description": "Éxito",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": false,
+                  "status": 200,
+                  "body": [
+                    {
+                      "id_tipo_producto": 1,
+                      "detalle": "Abarrotes"
+                    },
+                    {
+                      "id_tipo_producto": 2,
+                      "detalle": "Dulcería"
+                    },
+                    {
+                      "id_tipo_producto": 3,
+                      "detalle": "Aseo"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error de solicitud",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": true,
+                  "status": 400,
+                  "message": "Error de solicitud"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error de servidor",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": true,
+                  "status": 500,
+                  "message": "Error de servidor"
+                }
               }
             }
           }
-        },
+        } , 
+        "parameters": [
+          {
+          "name": "Authorization",
+          "in": "header",
+          "required": true,
+          "schema": {
+            "type": "string"
+          },
+          "description": "Token de autorización"
+    }
+      ]
+      }
+    },
+    "/api/product_type/{id_tipo_producto}": {
+      "get": {
+        "summary": "Obtener detalle de un tipo de producto por ID",
+        "parameters": [
+          {
+            "name": "id_tipo_producto",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "ID del tipo de producto"
+          }, 
+          {
+          "name": "Authorization",
+          "in": "header",
+          "required": true,
+          "schema": {
+            "type": "string"
+          },
+          "description": "Token de autorización"
+          }
+        ],
         "responses": {
-          "default": {
-            "description": "Operación satisfactoria",
+          "200": {
+            "description": "Éxito",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
+                "example": {
+                  "error": false,
+                  "status": 200,
+                  "body": [
+                    {
+                      "id_tipo_producto": 1,
+                      "detalle": "Abarrotes"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error de solicitud",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": true,
+                  "status": 400,
+                  "message": "Error de solicitud"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error de servidor",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": true,
+                  "status": 500,
+                  "message": "Error de servidor"
+                }
+              }
+            }
+          }
+        } 
+      }
+    }, 
+    "/api/product_type/detalle/{detalle}": {
+      "get": {
+        "summary": "Obtener detalle de un tipo de producto por nombre",
+        "parameters": [
+          {
+            "name": "detalle",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Nombre del tipo de producto"
+          }, {
+          "name": "Authorization",
+          "in": "header",
+          "required": true,
+          "schema": {
+            "type": "string"
+          },
+          "description": "Token de autorización"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Éxito",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": false,
+                  "status": 200,
+                  "body": [
+                    {
+                      "id_tipo_producto": 1,
+                      "detalle": "Abarrotes"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error de solicitud",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": true,
+                  "status": 400,
+                  "message": "Error de solicitud"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error de servidor",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": true,
+                  "status": 500,
+                  "message": "Error de servidor"
                 }
               }
             }
           }
         }
       }
-    }
-  },
-  "components": {
-    "schemas": {
-      "User": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "example": "id-2001"
-          },
-          "username": {
-            "type": "string",
-            "example": "DagoGres"
-          },
-          "password": {
-            "type": "string",
-            "example": "12345"
-          }
-        },
-        "xml": {
-          "name": "user"
-        }
-      },
-      "ApiResponse": {
-        "type": "object",
-        "properties": {
-          "code": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "type": {
+    }, 
+     "/api/product_type/id_tipo_producto/{id_tipo_producto}": {
+      "get": {
+        "summary": "Obtener detalle de un tipo de producto por ID",
+        "parameters": [
+          {
+            "name": "id_tipo_producto",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "ID del tipo de producto"
+          }, {
+          "name": "Authorization",
+          "in": "header",
+          "required": true,
+          "schema": {
             "type": "string"
           },
-          "message": {
-            "type": "string"
+          "description": "Token de autorización"
           }
-        },
-        "xml": {
-          "name": "##default"
+        ],
+        "responses": {
+          "200": {
+            "description": "Éxito",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": false,
+                  "status": 200,
+                  "body": [
+                    {
+                      "id_tipo_producto": 2,
+                      "detalle": "Dulceria"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error de solicitud",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": true,
+                  "status": 400,
+                  "message": "Error de solicitud"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error de servidor",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": true,
+                  "status": 500,
+                  "message": "Error de servidor"
+                }
+              }
+            }
+          }
         }
       }
-    },
-    "requestBodies": {
-      "UserArray": {
-        "description": "List of user object",
-        "content": {
-          "application/json": {
+     }, 
+     "/api/order_detail/": {
+      "get": {
+        "summary": "Obtener detalles de pedidos",
+        "parameters": [
+         {
+          "name": "Authorization",
+          "in": "header",
+          "required": true,
+          "schema": {
+            "type": "string"
+          },
+          "description": "Token de autorización"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Éxito",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": false,
+                  "status": 200,
+                  "body": [
+                    {
+                      "id_producto": 1,
+                      "id_pedido": 3,
+                      "cantidad": 2,
+                      "total": "5600"
+                    },
+                    {
+                      "id_producto": 2,
+                      "id_pedido": 3,
+                      "cantidad": 1,
+                      "total": "4800"
+                    },
+                    {
+                      "id_producto": 4,
+                      "id_pedido": 3,
+                      "cantidad": 3,
+                      "total": "8400"
+                    },
+                    {
+                      "id_producto": 5,
+                      "id_pedido": 3,
+                      "cantidad": 2,
+                      "total": "1100"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error de solicitud",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": true,
+                  "status": 400,
+                  "message": "Error de solicitud"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error de servidor",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": true,
+                  "status": 500,
+                  "message": "Error de servidor"
+                }
+              }
+            }
+          }
+        }
+      }, 
+      "post": {
+        "summary": "Insertar detalles de un pedido",
+         "parameters": [
+         {
+          "name": "Authorization",
+          "in": "header",
+          "required": true,
+          "schema": {
+            "type": "string"
+          },
+          "description": "Token de autorización"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": {
+                "id_producto": 1,
+                "id_pedido": 3,
+                "cantidad": 2,
+                "total": "8000",
+                "id_usuario": 14,
+                "accion": "insert-compose"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Creado exitosamente",
+            "content": {
+              "application/json": {
+                "example": {
+                  "fieldCount": 0,
+                  "affectedRows": 1,
+                  "insertId": 123,
+                  "info": "",
+                  "serverStatus": 2,
+                  "warningStatus": 0,
+                  "changedRows": 0
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error de solicitud",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Bad Request"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error de servidor",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "No se encontró el servidor"
+                }
+              }
+            }
+          }
+        }
+      }
+    }, 
+    "/api/order_detail/{id_producto}/{id_pedido}": {
+      "get": {
+        "summary": "Obtener detalles de un pedido por id producto y id pedido",
+        "parameters": [
+          {
+            "name": "id_producto",
+            "in": "path",
+            "required": true,
             "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/User"
+              "type": "integer"
+            },
+            "description": "ID del producto"
+          },
+          {
+            "name": "id_pedido",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "ID del pedido"
+          }, 
+          {
+          "name": "Authorization",
+          "in": "header",
+          "required": true,
+          "schema": {
+            "type": "string"
+          },
+          "description": "Token de autorización"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Éxito",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": false,
+                  "status": 200,
+                  "body": [
+                    {
+                      "id_producto": 1,
+                      "id_pedido": 3,
+                      "cantidad": 2,
+                      "total": "5600"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error de solicitud",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Not Found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error de servidor",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "No se encontró el servidor"
+                }
+              }
+            }
+          }
+        }
+      }
+    }, 
+    "/api/order_detail/query/id_pedido/{id_pedido}": {
+      "get": {
+        "summary": "Obtener detalles de un pedido por ID de pedido",
+        "parameters": [
+          {
+            "name": "id_pedido",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "ID del pedido"
+          }, {
+          "name": "Authorization",
+          "in": "header",
+          "required": true,
+          "schema": {
+            "type": "string"
+          },
+          "description": "Token de autorización"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Éxito",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": false,
+                  "status": 200,
+                  "body": [
+                    {
+                      "id_producto": 1,
+                      "id_pedido": 3,
+                      "cantidad": 2,
+                      "total": "5600"
+                    },
+                    {
+                      "id_producto": 2,
+                      "id_pedido": 3,
+                      "cantidad": 1,
+                      "total": "4800"
+                    },
+                    {
+                      "id_producto": 4,
+                      "id_pedido": 3,
+                      "cantidad": 3,
+                      "total": "8400"
+                    },
+                    {
+                      "id_producto": 5,
+                      "id_pedido": 3,
+                      "cantidad": 2,
+                      "total": "1100"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error de solicitud",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Not Found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error de servidor",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "No se encontró el servidor"
+                }
+              }
+            }
+          }
+        }
+      }
+    }, 
+    "/api/order_detail/query/id_producto/{id_producto}": {
+      "get": {
+        "summary": "Obtener detalles de un pedido por ID de producto",
+        "parameters": [
+          {
+            "name": "id_producto",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "ID del producto"
+          },{
+          "name": "Authorization",
+          "in": "header",
+          "required": true,
+          "schema": {
+            "type": "string"
+          },
+          "description": "Token de autorización"
+          } 
+        ],
+        "responses": {
+          "200": {
+            "description": "Éxito",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": false,
+                  "status": 200,
+                  "body": [
+                    {
+                      "id_producto": 2,
+                      "id_pedido": 3,
+                      "cantidad": 1,
+                      "total": "4800"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error de solicitud",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Not Found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error de servidor",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "No se encontró el servidor"
+                }
+              }
+            }
+          }
+        }
+      }
+    }, 
+    "/api/order_detail/query/cantidad/{cantidad}": {
+      "get": {
+        "summary": "Obtener detalles de un pedido por cantidad",
+        "parameters": [
+          {
+            "name": "cantidad",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Cantidad de productos en el pedido"
+          }, 
+          {
+          "name": "Authorization",
+          "in": "header",
+          "required": true,
+          "schema": {
+            "type": "string"
+          },
+          "description": "Token de autorización"
+          } 
+
+        ],
+        "responses": {
+          "200": {
+            "description": "Éxito",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": false,
+                  "status": 200,
+                  "body": [
+                    {
+                      "id_producto": 4,
+                      "id_pedido": 3,
+                      "cantidad": 3,
+                      "total": "8400"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error de solicitud",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Not Found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error de servidor",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "No se encontró el servidor"
+                }
+              }
+            }
+          }
+        }
+      }
+    }, 
+    "/api/client/": {
+      "get": {
+        "summary": "Obtener lista de clientes",
+        "parameters": [
+          {
+          "name": "Authorization",
+          "in": "header",
+          "required": true,
+          "schema": {
+            "type": "string"
+          },
+          "description": "Token de autorización"
+          } 
+        ],
+        "responses": {
+          "200": {
+            "description": "Éxito",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": false,
+                  "status": 200,
+                  "body": [
+                    {
+                      "id_cliente": 1,
+                      "nombres": "Camilo Andres",
+                      "apellidos": "Ordoñez Guzman",
+                      "correo": "camiloguzman@outlook.com",
+                      "codPais": 57,
+                      "numeroCelular": "3155679568",
+                      "direccion": "Calle 24 #5-55, Madrid, Cundinamerca",
+                      "id_ruta": 1
+                    },
+                    {
+                      "id_cliente": 2,
+                      "nombres": "Luz Marina",
+                      "apellidos": "Diaz Serran",
+                      "correo": "luzserran@outlook.com",
+                      "codPais": 57,
+                      "numeroCelular": "3155689425",
+                      "direccion": "Calle 14 #5-10, Madrid, Cundinamerca",
+                      "id_ruta": 1
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error de servidor",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": true,
+                  "status": 500,
+                  "body": {
+                    "error": "No se encontró el servidor"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }, 
+      "post": {
+        "summary": "Insertar un nuevo cliente",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "nombres": "Camilo Andress",
+                "apellidos": "Ordoñez Guzmans",
+                "correo": "camiloguzmasn@outlook.com",
+                "codPais": 57,
+                "numeroCelular": "3155674568",
+                "direccion": "Calle 24 #5-54, Madrid, Cundinamerca",
+                "id_ruta": 1,
+                "id_usuario": 1,
+                "accion": "insert"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Éxito",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": false,
+                  "status": 200,
+                  "body": {
+                    "message": "Cliente insertado exitosamente"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error de servidor",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": true,
+                  "status": 500,
+                  "body": {
+                    "error": "Error interno del servidor al insertar el cliente"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualizar información de un cliente",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "id_cliente": 11,
+                "nombres": "Camilo Andres",
+                "apellidos": "Ordoñez Caicedo",
+                "correo": "camiloguzman@outlook.com",
+                "codPais": 57,
+                "numeroCelular": "3155679568",
+                "direccion": "Calle 24 #5-55, Madrid, Cundinamerca",
+                "id_ruta": 1,
+                "id_usuario": 19,
+                "accion": "update"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Éxito",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": false,
+                  "status": 200,
+                  "body": {
+                    "message": "Cliente actualizado exitosamente"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error de servidor",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": true,
+                  "status": 500,
+                  "body": {
+                    "error": "Error interno del servidor al actualizar el cliente"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }, 
+    "/api/client/{clientId}": {
+      "get": {
+        "summary": "Obtener información de un cliente",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "ID del cliente"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Token de autorización"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Éxito",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": false,
+                  "status": 200,
+                  "body": [
+                    {
+                      "id_cliente": 2,
+                      "nombres": "Luz Marina",
+                      "apellidos": "Diaz Serran",
+                      "correo": "luzserran@outlook.com",
+                      "codPais": 57,
+                      "numeroCelular": "3155689425",
+                      "direccion": "Calle 14 #5-10, Madrid, Cundinamerca",
+                      "id_ruta": 1
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error de servidor",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": true,
+                  "status": 500,
+                  "body": {
+                    "error": "No se encontró el servidor"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }, 
+      "delete": {
+        "summary": "Eliminar un cliente por ID",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "ID del cliente a eliminar"
+          }
+          ,
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Token de autorización"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Éxito",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": false,
+                  "status": 200,
+                  "body": {
+                    "message": "Cliente eliminado exitosamente"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error de servidor",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": true,
+                  "status": 500,
+                  "body": {
+                    "error": "Error interno del servidor al eliminar el cliente"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }, 
+    "/api/client/nombres/{clientName}": {
+      "get": {
+        "summary": "Obtener información de un cliente por nombre",
+        "parameters": [
+          {
+            "name": "clientName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Nombre del cliente"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Token de autorización"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Éxito",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": false,
+                  "status": 200,
+                  "body": [
+                    {
+                      "id_cliente": 1,
+                      "nombres": "Camilo Andres",
+                      "apellidos": "Ordoñez Guzman",
+                      "correo": "camiloguzman@outlook.com",
+                      "codPais": 57,
+                      "numeroCelular": "3155679568",
+                      "direccion": "Calle 24 #5-55, Madrid, Cundinamerca",
+                      "id_ruta": 1
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error de servidor",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": true,
+                  "status": 500,
+                  "body": {
+                    "error": "No se encontró el servidor"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }, 
+    "/api/route/": {
+      "get": {
+        "summary": "Obtener la lista de rutas",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Token de autorización"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Éxito",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": false,
+                  "status": 200,
+                  "body": [
+                    {
+                      "id_ruta": 1,
+                      "nombre_ruta": "El diamante",
+                      "id_admin": 1,
+                      "id_vendedor": 2,
+                      "id_entregador": 3
+                    },
+                    {
+                      "id_ruta": 2,
+                      "nombre_ruta": "El trebol",
+                      "id_admin": 1,
+                      "id_vendedor": 2,
+                      "id_entregador": 3
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error de servidor",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": true,
+                  "status": 500,
+                  "body": {
+                    "error": "Error interno del servidor al obtener la lista de rutas"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }, 
+      "post": {
+        "summary": "Insertar una nueva ruta",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Token de autorización"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "nombre_ruta": "El diamantee",
+                "id_usuario": 20,
+                "id_vendedor": 19,
+                "id_entregador": 18,
+                "accion": "insert"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Éxito",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": false,
+                  "status": 200,
+                  "body": {
+                    "message": "Ruta insertada exitosamente"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error de servidor",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": true,
+                  "status": 500,
+                  "body": {
+                    "error": "Error interno del servidor al insertar la ruta"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }, 
+      "put": {
+        "summary": "Actualizar información de una ruta",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Token de autorización"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "id_ruta": 2,
+                "nombre_ruta": "El diamante Edit",
+                "id_usuario": 20,
+                "id_vendedor": 19,
+                "id_entregador": 18,
+                "accion": "update"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Éxito",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": false,
+                  "status": 200,
+                  "body": {
+                    "message": "Ruta actualizada exitosamente"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error de servidor",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": true,
+                  "status": 500,
+                  "body": {
+                    "error": "Error interno del servidor al actualizar la ruta"
+                  }
+                }
               }
             }
           }
         }
       }
     },
-    "securitySchemes": {
-      "petstore_auth": {
-        "type": "oauth2",
-        "flows": {
-          "implicit": {
-            "authorizationUrl": "https://petstore3.swagger.io/oauth/authorize",
-            "scopes": {
-              "write:pets": "modify pets in your account",
-              "read:pets": "read your pets"
+     "/api/route/{routeId}": {
+      "get": {
+        "summary": "Obtener información de una ruta por ID",
+        "parameters": [
+          {
+            "name": "routeId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "ID de la ruta a obtener"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Token de autorización"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Éxito",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": false,
+                  "status": 200,
+                  "body": [
+                    {
+                      "id_ruta": 1,
+                      "nombre_ruta": "El diamante",
+                      "id_admin": 1,
+                      "id_vendedor": 2,
+                      "id_entregador": 3
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error de servidor",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": true,
+                  "status": 500,
+                  "body": {
+                    "error": "Error interno del servidor al obtener la información de la ruta"
+                  }
+                }
+              }
             }
           }
         }
-      },
-      "api_key": {
-        "type": "apiKey",
-        "name": "api_key",
-        "in": "header"
+      }, 
+      "delete": {
+        "summary": "Eliminar una ruta por ID",
+        "parameters": [
+          {
+            "name": "routeId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "ID de la ruta a eliminar"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Token de autorización"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Éxito",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": false,
+                  "status": 200,
+                  "body": {
+                    "message": "Ruta eliminada exitosamente"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error de servidor",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": true,
+                  "status": 500,
+                  "body": {
+                    "error": "Error interno del servidor al eliminar la ruta"
+                  }
+                }
+              }
+            }
+          }
+        }
       }
+    }, 
+    "/api/route/nombre_ruta/{routeName}": {
+      "get": {
+        "summary": "Obtener información de una ruta por nombre",
+        "parameters": [
+          {
+            "name": "routeName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Nombre de la ruta a obtener"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Token de autorización"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Éxito",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": false,
+                  "status": 200,
+                  "body": [
+                    {
+                      "id_ruta": 2,
+                      "nombre_ruta": "El trebol",
+                      "id_admin": 1,
+                      "id_vendedor": 2,
+                      "id_entregador": 3
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error de servidor",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": true,
+                  "status": 500,
+                  "body": {
+                    "error": "Error interno del servidor al obtener la información de la ruta"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    } 
+},
+  "components": {
+    "schemas": {
+      "Producto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "nombre": {
+            "type": "string"
+          },
+          "descripcion": {
+            "type": "string"
+          },
+          "precio": {
+            "type": "string"
+          }, 
+          "empresa": {
+            "type": "string"
+          }, 
+          "id_tipo_producto": {
+            "type": "integer"
+          },
+          "id_usuario": {
+            "type": "integer"
+          }, 
+          "imagen": {
+            "type": "string"
+          }
+        }
+      }, 
+      "Tipo_Producto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "detalle": {
+            "type": "string"
+          },
+          "id_usuario": {
+            "type": "integer"
+          }
+        }
+      },
+      "Ruta": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "nombre_ruta": {
+            "type": "string"
+          },
+          "id_vendedor": {
+            "type": "integer"
+          }, 
+          "id_entregador": {
+            "type": "integer"
+          }
+        }
+      }, 
+      "Pedido": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "notas": {
+            "type": "string"
+          },
+          "id_estado": {
+            "type": "integer"
+          }, 
+          "id_cliente": {
+            "type": "integer"
+          },
+           "fecha": {
+            "type": "string"
+          },
+           "total": {
+            "type": "string"
+          }, 
+          "id_usuario": {
+            "type": "integer"
+          }
+
+        }
+      }, 
+      "Cliente": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "nombres": {
+            "type": "string"
+          },
+          "apellidos": {
+            "type": "string"
+          }, 
+          "correo": {
+            "type": "string"
+          },
+           "codPais": {
+            "type": "integer"
+          },
+           "numeroCelular": {
+            "type": "string"
+          }, 
+          "direccion": {
+            "type": "string"
+          }, 
+          "id_ruta": {
+            "type": "integer"
+          }, 
+          "id_usuario": {
+            "type": "integer"
+          }
+        }
+      }, 
+      "DetallePedido": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "id_producto": {
+            "type": "integer"
+          },
+          "id_pedido": {
+            "type": "integer"
+          }, 
+          "cantidad": {
+            "type": "integer"
+          },
+           "total": {
+            "type": "string"
+          },
+           "id_usuario": {
+            "type": "integer"
+          }
+        }
+      }
+
     }
   }
 }
